@@ -7,7 +7,7 @@ import { HttpModule } from '@nestjs/axios';
 import { ConfigModule } from '@nestjs/config';
 
 describe('NewsApiCallService', () => {
-  let service: NewsApiService;
+  let newsService: NewsApiService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -15,15 +15,28 @@ describe('NewsApiCallService', () => {
       providers: [NewsApiService],
     }).compile();
 
-    service = module.get<NewsApiService>(NewsApiService);
+    newsService = module.get<NewsApiService>(NewsApiService);
   });
 
   it('should be defined', () => {
-    expect(service).toBeDefined();
+    expect(newsService).toBeDefined();
   });
 
-  it('should give an ok status', async () => {
-    const result = await service.getTopHeadlineArticles();
-    expect(result).toEqual(expect.objectContaining({ status: 'ok' }));
+  describe('Api call', () => {
+    it('should give an ok status on headlines endpoint', async () => {
+      const result = await newsService.getHeadlines({
+        country: 'ar',
+        category: 'science',
+      });
+      expect(result).toEqual(expect.objectContaining({ status: 'ok' }));
+    });
+
+    it('should give an ok status on everything endpoint', async () => {
+      const result = await newsService.getEverything({
+        q: 'ukraine',
+        searchIn: 'title',
+      });
+      expect(result).toEqual(expect.objectContaining({ status: 'ok' }));
+    });
   });
 });

@@ -1,12 +1,14 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Post, Body, HttpCode } from '@nestjs/common';
 import { NewsApiService } from './news-api.service';
+import { FilterParamsDto } from './filterParams.dto';
 
-@Controller('news-api')
+@Controller('news')
 export class NewsApiController {
-  constructor(private readonly service: NewsApiService) {}
+  constructor(private readonly newsService: NewsApiService) {}
 
-  @Get()
-  getArticles() {
-    return this.service.getTopHeadlineArticles();
+  @Post('/')
+  @HttpCode(200)
+  async getArticles(@Body() filterParams: FilterParamsDto) {
+    return this.newsService.getArticles(filterParams);
   }
 }
