@@ -1,6 +1,4 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { DatabaseModule } from './database/database.module';
 import { NewsApiService } from './news-api/news-api.service';
@@ -27,7 +25,7 @@ import { HttpModule } from '@nestjs/axios';
     NewsApiModule,
     HttpModule,
   ],
-  controllers: [AppController],
-  providers: [AppService, NewsApiService],
+  controllers: [],
+  providers: [NewsApiService],
 })
 export class AppModule {}
