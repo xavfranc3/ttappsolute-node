@@ -47,7 +47,7 @@ export class NewsApiService {
     return response.data;
   }
 
-  private static getFinalParams(filterParams) {
+  private getFinalParams(filterParams) {
     return Object.entries(filterParams)
       .filter(([_, v]) => v != null)
       .reduce((finalParams, [k, v]) => ({ ...finalParams, [k]: v }), {});
