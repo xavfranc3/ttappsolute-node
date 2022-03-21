@@ -9,7 +9,7 @@ import {
 import { NewsApiService } from './news-api.service';
 import { FilterParamsDto } from './filterParams.dto';
 
-@Controller('news')
+@Controller('news-api')
 export class NewsApiController {
   constructor(private readonly newsService: NewsApiService) {}
 
