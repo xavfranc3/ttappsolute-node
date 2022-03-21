@@ -5,6 +5,7 @@ import { NewsApiService } from './news-api/news-api.service';
 import { NewsApiModule } from './news-api/news-api.module';
 import * as Joi from 'joi';
 import { HttpModule } from '@nestjs/axios';
+import { NewsModule } from './news/news.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { HttpModule } from '@nestjs/axios';
     DatabaseModule,
     NewsApiModule,
     HttpModule,
+    NewsModule,
   ],
   controllers: [],
   providers: [NewsApiService],
