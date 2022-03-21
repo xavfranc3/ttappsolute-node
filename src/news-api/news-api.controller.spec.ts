@@ -45,4 +45,41 @@ describe('NewsApiCallController', () => {
       .expect(200);
     expect(response.body).toEqual(expect.objectContaining({ status: 'ok' }));
   });
+
+  it('should return a HttpException with invalid data', async () => {
+    const response = await request
+      .agent('http://localhost:5000/news')
+      .post('/')
+      .send({
+        topHeadlines: false,
+        params: {},
+      })
+      .expect(400);
+    expect(response.body).toEqual(
+      expect.objectContaining({
+        error: 'Bad Request',
+        statusCode: 400,
+      }),
+    );
+  });
+
+  it('should return a HttpException from api with invalid data', async () => {
+    const response = await request
+      .agent('http://localhost:5000/news')
+      .post('/')
+      .send({
+        topHeadlines: false,
+        params: {
+          language: 'fr',
+        },
+      })
+      .expect(400);
+    expect(response.body).toEqual(
+      expect.objectContaining({
+        message:
+          'Required parameters are missing, the scope of your search is too broad.',
+        statusCode: 400,
+      }),
+    );
+  });
 });

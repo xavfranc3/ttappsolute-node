@@ -1,4 +1,11 @@
-import { Controller, Post, Body, HttpCode } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  HttpCode,
+  HttpException,
+  HttpStatus,
+} from '@nestjs/common';
 import { NewsApiService } from './news-api.service';
 import { FilterParamsDto } from './filterParams.dto';
 
@@ -9,6 +16,13 @@ export class NewsApiController {
   @Post('/')
   @HttpCode(200)
   async getArticles(@Body() filterParams: FilterParamsDto) {
-    return this.newsService.getArticles(filterParams);
+    try {
+      return this.newsService.getArticles(filterParams);
+    } catch (error) {
+      throw new HttpException(
+        `${error.message}`,
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
   }
 }
