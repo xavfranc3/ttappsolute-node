@@ -3,36 +3,61 @@
 </p>
 
 [circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
+
 [circleci-url]: https://circleci.com/gh/nestjs/nest
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+# Description
 
-## Description
+Technical interview for AppSolute in NestJs
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+# Installation
 
-## Installation
+## Docker
+
+Edit
 
 ```bash
-$ npm install
+.env.docker.example
 ```
 
-## Running the app
+&
+
+```bash
+.env.example
+```
+
+with necessary values, and rename them to
+
+```bash
+.env.docker
+```
+
+&
+
+```bash
+.env
+```
+
+#### NOTE: Be careful to fill in the same values for both environments
+
+Finally:
+
+```bash
+$ docker-compose up --build
+```
+
+## Without docker
+
+Make sure to have a Redis service and an appropriately named mysql database created, with appropriate values registered
+in the .env file
+
+Install dependencies:
+
+```bash
+$ npm ci
+```
+
+### Running the app
 
 ```bash
 # development
@@ -45,29 +70,42 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
-## Test
+### Test
 
 ```bash
-# unit tests
 $ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
 ```
+
+or
+
+```bash
+$ npm run test:watch 
+```
+
+for test watching(be wary of the number of times the tests query the external NewsAPI, especially if you have a limited
+account)
+
+# Querying the app
+
+The app runs on
+
+```bash
+http://localhost:${PORT}
+```
+
+The endpoint routes, body fields and types are documented at:
+
+```bash
+http://localhost:${PORT}/api
+```
+
+## Notable choices
+
+The insertion of articles in the database are done in a job queue, to the least for the client to get a quick response,
+but mostly in prevention of eventual request time outs.
+
+The @nestjs/Bull queue library is used to roll out this feature
 
 ## Support
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
+Contact me at : dev.xavier.francois@gmail.com
