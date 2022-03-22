@@ -14,7 +14,7 @@ export class NewsApiService {
     private readonly configService: ConfigService,
   ) {
     this.baseUrl = this.configService.get('NEWS_API_BASE_URL');
-    this.apiKey = this.configService.get('NEWS_API_KEY3');
+    this.apiKey = this.configService.get('NEWS_API_KEY');
   }
 
   async getEverything(filterParams): Promise<Article> {
