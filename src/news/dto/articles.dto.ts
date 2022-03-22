@@ -1,4 +1,4 @@
-import { IsString, IsDate, IsOptional, IsEnum } from 'class-validator';
+import { IsString, IsOptional, IsEnum } from 'class-validator';
 import { ApiPropertyOptional } from '@nestjs/swagger';
 import { SearchInEnum } from './searchIn.enum';
 
@@ -13,7 +13,6 @@ export class ArticlesDto {
   @ApiPropertyOptional({
     description: 'Search in title, description or content',
     enum: SearchInEnum,
-    isArray: true,
   })
   @IsString()
   @IsEnum(SearchInEnum)
@@ -24,15 +23,13 @@ export class ArticlesDto {
     description: 'Earliest date for results',
   })
   @IsOptional()
-  @IsDate()
-  from: Date;
+  from: string;
 
   @ApiPropertyOptional({
     description: 'Latest date for results',
   })
   @IsOptional()
-  @IsDate()
-  to: Date;
+  to: string;
 
   @ApiPropertyOptional({
     description: 'Language of article',

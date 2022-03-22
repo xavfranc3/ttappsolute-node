@@ -15,6 +15,14 @@ export class NewsController {
   @Post('/')
   @ApiTags('Articles')
   @ApiResponse({ status: 200, description: 'Articles successfully acquired' })
+  @ApiResponse({
+    status: 400,
+    description: 'Wrong types for search parameters',
+  })
+  @ApiResponse({
+    status: 500,
+    description: 'Something is wrong on our side of things, try again later...',
+  })
   @HttpCode(200)
   async getArticles(@Body() data: ArticlesDto) {
     const articles = await this.newsApiService.getEverything(data);
