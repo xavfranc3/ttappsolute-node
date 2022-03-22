@@ -22,21 +22,14 @@ describe('NewsApiCallService', () => {
     expect(newsService).toBeDefined();
   });
 
-  describe('Api call', () => {
-    it('should give an ok status on headlines endpoint', async () => {
-      const result = await newsService.getHeadlines({
-        country: 'ar',
-        category: 'science',
-      });
-      expect(result).toEqual(expect.objectContaining({ status: 'ok' }));
+  it('should give an ok status on endpoint', async () => {
+    const result = await newsService.getEverything({
+      q: 'apple',
+      language: 'fr',
+      searchIn: 'title',
     });
-
-    it('should give an ok status on everything endpoint', async () => {
-      const result = await newsService.getEverything({
-        q: 'ukraine',
-        searchIn: 'title',
-      });
-      expect(result).toEqual(expect.objectContaining({ status: 'ok' }));
-    });
+    expect(result).toEqual(
+      expect.arrayContaining([expect.objectContaining({})]),
+    );
   });
 });
