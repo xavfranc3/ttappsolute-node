@@ -4,16 +4,16 @@ import Article from './article.entity';
 @EntityRepository(Article)
 export class ArticleRepository extends Repository<Article> {
   async insertArticles(articles) {
-    const formattedArticles = this.formatArticles(articles);
+    const mappedArticles = this.mapArticles(articles);
     return await this.createQueryBuilder()
       .insert()
       .into(Article)
-      .values(formattedArticles)
+      .values(mappedArticles)
       .orIgnore()
       .execute();
   }
 
-  private formatArticles(articles) {
+  private mapArticles(articles) {
     return articles.map((article) => {
       return {
         sourceId: article.source.id,

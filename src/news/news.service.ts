@@ -9,10 +9,6 @@ export class NewsService {
     private articlesRepository: ArticleRepository,
   ) {}
 
-  getAllArticles() {
-    return this.articlesRepository.find();
-  }
-
   async insertArticles(data) {
     return await this.articlesRepository.insertArticles(data);
   }
