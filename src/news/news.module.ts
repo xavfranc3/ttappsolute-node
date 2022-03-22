@@ -3,10 +3,21 @@ import { NewsService } from './news.service';
 import { NewsController } from './news.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ArticleRepository } from './article.repository';
+import { BullModule } from '@nestjs/bull';
+import { NewsApiService } from '../news-api/news-api.service';
+import { NewsApiModule } from '../news-api/news-api.module';
+import { HttpModule } from '@nestjs/axios';
+import { ArticleProcessor } from './workers/article.processor';
+import { ConfigService } from '@nestjs/config';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([ArticleRepository])],
+  imports: [
+    TypeOrmModule.forFeature([ArticleRepository]),
+    BullModule.registerQueue({ name: 'news' }),
+    NewsApiModule,
+    HttpModule,
+  ],
   controllers: [NewsController],
-  providers: [NewsService],
+  providers: [NewsService, NewsApiService, ArticleProcessor, ConfigService],
 })
 export class NewsModule {}

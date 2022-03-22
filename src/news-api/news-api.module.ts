@@ -1,12 +1,12 @@
 import { Module } from '@nestjs/common';
 import { HttpModule } from '@nestjs/axios';
 import { NewsApiService } from './news-api.service';
-import { NewsApiController } from './news-api.controller';
+import { ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [HttpModule],
-  providers: [NewsApiService],
+  providers: [NewsApiService, ConfigService],
   exports: [NewsApiService],
-  controllers: [NewsApiController],
+  controllers: [],
 })
 export class NewsApiModule {}
